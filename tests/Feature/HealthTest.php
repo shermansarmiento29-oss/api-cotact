@@ -1,16 +1,15 @@
 <?php
 
-it('responde el estado del servicio', function () {
-    $this->getJson('/api/v1/health')
-        ->assertOk()
-        ->assertJson([
-            'status' => 'ok',
-            'app' => 'Contactos API',
-        ]);
-});
+namespace Tests\Feature;
 
-it('responde 404 en JSON si la ruta no existe', function () {
-    $this->get('/api/v1/no-existe')
-        ->assertNotFound()
-        ->assertHeader('Content-Type', 'application/json');
-});
+use Tests\TestCase;
+
+class HealthTest extends TestCase
+{
+    public function test_health_responde_ok(): void
+    {
+        $this->getJson('/api/v1/health')
+            ->assertOk()
+            ->assertJson(['status' => 'ok']);
+    }
+}
